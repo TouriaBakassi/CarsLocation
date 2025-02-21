@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ADMIN_CONNEXION } from '../../Actions/AuthentificationActions/AuthenActions';
-
+import { ToastContainer, toast } from 'react-toastify';
 
 
 function AdminLogin() {
@@ -17,7 +17,7 @@ function AdminLogin() {
 
 
   const isloginAdmin  = useSelector((state) => state.authen.isLoginAdmin);
-
+  const notify = () => toast.error("Email or Password Incorrect ");
   useEffect(() => {
 
     if (isloginAdmin) {
@@ -35,26 +35,33 @@ function AdminLogin() {
     console.log(password);
     console.log('login : ' + isloginAdmin);
     disp && navigate('/');
-    
+    if (!isloginAdmin) {
+      notify();
+      setEmail('');
+      setPassword('');
+    }
   };
 
-  return (
-    <div className="md:col-span-10">
-      <div className="flex justify-center items-center flex-col mt-5">
+  return (<>
+  
+  
+    <div className="flex justify-center items-center mt-6 bg-gray-100 w-full">
+      
+      <div className="flex justify-center items-center flex-col mt-5 p-5 w-12/6">
         <h1 className="">ADMIN CONNEXION</h1>
         <h5 className='text-center text-sm' >Bienvenue, Veuillez saisir vos informations</h5>
-        
+        <ToastContainer />
         <form className='pt-4' onSubmit={handleSubmit}>
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
       
 
-        <div class="sm:col-span-8">
+        <div class="sm:col-span-12">
           <label for="email" class="block text-sm/6 font-medium text-gray-900">Address Email</label>
           <div class="mt-2">
             <input id="email" name="email" type="email" onChange={(e)=>setEmail(e.target.value)} autocomplete="email" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
           </div>
         </div>
-        <div class="sm:col-span-8">
+        <div class="sm:col-span-12">
           <label for="pass" class="block text-sm/6 font-medium text-gray-900">Mot de Passe</label>
           <div class="mt-2">
             <input type="password" name="pass" id="pass" onChange={(e)=>setPassword(e.target.value)} autocomplete="given-name" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
@@ -71,8 +78,12 @@ function AdminLogin() {
           </p> */}
         </form>
       </div>
-      
+      <div className=' w-12/6'>
+        <img src='/image/proxy-image.jpeg'  className='w-full'/>
+      </div>
     </div>
+   
+    </>
   );
 }
 

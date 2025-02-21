@@ -1,82 +1,39 @@
+
 import React, { useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+
 import 'leaflet/dist/leaflet.css';
 import { Icon } from 'leaflet';
 import Sidebar from "./includes/SideBar";
 import Header from "./includes/Header";
-import { AJOUTER_VOITURE } from '../../Actions/VoitureActions/VoitureActions';
+import { AJOUTER_RESERVATION } from '../../Actions/ReservationActions/ReservationActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
+import { useParams } from 'react-router-dom';
 
 
 export default function AjouterVoiture(){
-        const [titre, setTitre] = useState('');
-        const [text, setText] = useState('');
-        const [prix, setPrix] = useState(null);
-        const [type, setType] = useState('');
-        const [image, setImage] = useState(null);
-        const [position, setPosition] = useState([31.7917, -7.0926]);
-        const [address, setAddress] = useState('');
-        const [marker, setMarker] = useState(null);
+        const userConnecter=useSelector((state)=>state.authen.userConnecter);
+        const [user, setUser] = useState(userConnecter);
+        const [ville, setVille] = useState('');
+        // const [voiture, setVoiture] = useState(null);
+        const [dateDebut, setDateDebut] = useState('');
+        const [dateFin, setDateFin] = useState('');
+        const {idVoiture}=useParams();
+        const voiture='' ;
         const [isVisible, setIsVisible] = useState(false);
         const count=useSelector(state=>state.voitures.voitures.length)
         const dispatch=useDispatch()
-
-        const handleFileChange = (e) => {
-            const file = e.target.files[0];
-            if (file) {
-              setImage(URL.createObjectURL(file)); 
-            }
-          };
-        const handleDownload = () => {
-            if (image) {
-              const link = document.createElement('a');
-              link.href = image; 
-              link.download = `voiture_${count+1}.png` 
-              setImage(`voiture_${count+1}.png`);
-              document.body.appendChild(link);
-              link.click();  
-              document.body.removeChild(link); 
-            }
-          };
-
-        const MyIcon= new Icon({
-            iconUrl:"/placeholder.png",
-            iconSize:[38,38]
-        })
-
-        const geocodeAddress = async () => {
-            try { const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`);
-                  const data = await response.json();
-
-            if (data.length > 0) {
-                    const { lat, lon } = data[0];
-                    setPosition([parseFloat(lat), parseFloat(lon)]);
-                    setMarker([parseFloat(lat), parseFloat(lon)]);
-            } else {
-                    alert('Address not found!');
-            }
-            } catch (error) {
-                console.error('Error geocoding address:', error);
-            }
-        };
 
        const notifySuccess = () => toast.success("La voiture est ajouter avec success ");
        const notifyError = () => toast.error("Remplir tous les champs !");
 
           const handleSubmit =  (e) => {
             e.preventDefault();
-            if (titre && text && address && image && position &&prix && type) {
-             dispatch(AJOUTER_VOITURE({titre:titre,text:text,type:type,adress:address,prix:prix,img:image,
-                                        position:{lat:position[0],long:position[1]} }));
+            if (user && ville && idVoiture && dateDebut && dateFin ) {
+             dispatch(AJOUTER_RESERVATION({titre:titre,text:text,type:type,adress:address,prix:prix,img:image }));
                 notifySuccess();
-                setTitre('');
-                setText('');
-                setAddress('')
-                setImage('')
-                setPosition([]);
-                setPrix(null);
-                setType('')
+                setUser(null);
+                
             }else{
                 notifyError();
             }
@@ -91,23 +48,20 @@ export default function AjouterVoiture(){
     
     <Header />
     <div className="flex w-full">
-        <div  className="flex w-4/10">
-        <Sidebar />
-        </div>
-   
+        
     <div className="flex justify-center items-center  bg-gray-100 w-full">
       <ToastContainer />
       <div className="flex justify-between items-start flex-col mt-5 p-5 w-12/6">
-        <h1 className=" text-green-600 text-xl font-medium">Ajouter Voiture</h1>
-        <h5 className='text-sm' >Veuillez saisir les informations de votre voiture</h5>
+        <h1 className=" text-green-600 text-xl font-medium">Ajouter Reservation</h1>
+        <h5 className='text-sm' >Veuillez saisir vos informations </h5>
         
         <form className='w-full pt-4' onSubmit={handleSubmit}>
         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
         <div className="sm:col-span-12 flex justify-between items-center">
-          <label for="titre" className="block text-sm/6 font-medium text-gray-900  mx-1">Titre de Voiture </label>
+          <label for="user" className="block text-sm/6 font-medium text-gray-900  mx-1">User </label>
           <div className="mt-2">
-            <input value={titre} id="titre" name="titre" type="text" onChange={(e)=>setTitre(e.target.value)} autocomplete="titre" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
+            <input disabled value={user.nom} id="user" name="user" type="text"  autocomplete="user" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
           </div>
           <label for="prix" className="block text-sm/6 font-medium text-gray-900 mx-1">Prix Voiture</label>
           <div className="mt-2">
@@ -176,7 +130,7 @@ export default function AjouterVoiture(){
         
         </form>
       </div>
-      {isVisible && (
+      {/* {isVisible && (
         <div className="z-40 fixed top-16 left-1/2 transform -translate-x-1/2 w-96 bg-green-500 text-white p-4 rounded-lg shadow-lg">
           <div className="flex items-center space-x-2">
             <svg
@@ -196,7 +150,7 @@ export default function AjouterVoiture(){
             <span>Ajout effectué avec succès !</span>
           </div>
         </div>
-      )}
+      )} */}
     </div>
 
 

@@ -1,9 +1,10 @@
 import { INSCRIPTION_USER,CONNEXION_USER,CONNEXION_ADMIN ,DECONNEXION_USER,DECONNEXION_ADMIN} from "../Actions/AuthentificationActions/AuthenActionsTypes";
 
 const initialState={
-    admin: JSON.parse(localStorage.getItem('admin')) || [{id:1,nom:"touria",email:"touria@mail.com",password:'1234'}],
+    admin: JSON.parse(localStorage.getItem('admin')) || [{id:1,nom:"Admin TOURIA",email:"touria@mail.com",password:'1234'}],
     users:JSON.parse(localStorage.getItem('users')) || [{id:1,nom:"maryam",email:"mary@mail.com",password:"2345"}],
     isLoginUser:JSON.parse(localStorage.getItem('isLoginUser')) || false,
+    userConnecter:JSON.parse(localStorage.getItem('userConnecter')) ||null ,
     isLoginAdmin: JSON.parse(localStorage.getItem('isLoginAdmin')) ||false,
 }
 
@@ -20,10 +21,12 @@ const ReducerAuthen=(state=initialState,action)=>{
             
             if (user) {
                 localStorage.setItem('isLoginUser', JSON.stringify(true))
-                return {...state,isLoginUser:true} 
+                localStorage.setItem('userConnecter', JSON.stringify(user))
+                return {...state,isLoginUser:true, userConnecter: user } 
             }else{
                 localStorage.setItem('isLoginUser', JSON.stringify(false))
-                return {...state,isLoginUser:false} 
+                localStorage.setItem('userConnecter', JSON.stringify(null))
+                return {...state,isLoginUser:false,userConnecter: null} 
             }
         case CONNEXION_ADMIN:
             const admin=state.admin.find((u)=>u.email==action.payload.email && u.password==action.payload.password)
@@ -37,8 +40,9 @@ const ReducerAuthen=(state=initialState,action)=>{
             }
         case DECONNEXION_USER:
             localStorage.setItem('isLoginUser', JSON.stringify(false))
-            return {...state,isLoginUser:false} 
-        case DECONNEXION_USER:
+            localStorage.setItem('userConnecter', JSON.stringify(null))
+            return {...state,isLoginUser:false,userConnecter: null}
+        case DECONNEXION_ADMIN:
             localStorage.setItem('isLoginAdmin', JSON.stringify(false))
                 return {...state,isLoginAdmin:false} 
                          

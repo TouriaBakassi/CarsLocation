@@ -36,17 +36,9 @@ const TestMap = () => {
   return (
     <div>
       {/* Address Input */}
-      <div style={{ margin: '20px', textAlign: 'center' }}>
-        <input
-          type="text"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          placeholder="Enter an address"
-          style={{ padding: '10px', width: '300px', marginRight: '10px' }}
-        />
-        <button onClick={geocodeAddress} style={{ padding: '10px' }}>
-          Search
-        </button>
+      <div>
+        <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address" />
+        <button onClick={geocodeAddress} style={{ padding: '10px' }}> Search </button>
       </div>
 
       {/* Map */}
