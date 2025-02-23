@@ -48,13 +48,13 @@ const handleDelete = async (id) => {
             return(
             
                 <div key={i} className="flex justify-between items-start w-64 flex-col p-5 m-2 rounded bg-white">
-                    <div><img src={`/image/${v.img}`} /> </div>
+                    <div><img src={`./image/${v.img}`} /> </div>
                     <p><b>Voiture: </b>  {v.titre} </p>
                     <p><b>Adresse: </b> {v.adress}</p>
                     <p><b>Prix:  </b>{v.prix}$ </p>
                     <div className="flex justify-between items-start">
-                    <button className="bg-red-500 p-1 m-1 px-4 text-white text-xs self-end rounded" onClick={()=> handleDelete(v.id)}>Supprimer</button>
-                    <button className="bg-orange-500 p-1 m-1   px-4 text-white text-xs self-end rounded"><Link to={`/voiture/${v.id}`}>Détail</Link></button>
+                    {/* <button className="bg-red-500 p-1 m-1 px-4 text-white text-xs self-end rounded" onClick={()=> handleDelete(v.id)}>Supprimer</button> */}
+                    <button className="bg-orange-500 p-1 m-1   px-4 text-white text-xs self-end rounded"><Link to={`/voiture/${v.id}`}>Réserver</Link></button>
                     </div>
                 </div>
             )

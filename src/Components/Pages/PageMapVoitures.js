@@ -5,6 +5,8 @@ import 'leaflet/dist/leaflet.css';
 import { Icon } from 'leaflet';
 import { Link } from "react-router-dom";
 import Header from "./includes/Header";
+import SidebarUser from "./includes/SideBarUser";
+import Sidebar from "./includes/SideBar";
 
 export default function MapVoiture(){
     const [position, setPosition] = useState([31.7917, -7.0926]);
@@ -12,6 +14,8 @@ export default function MapVoiture(){
     const [marker, setMarker] = useState(null);
     const voitures=useSelector(state=>state.voitures.voitures);
     
+    const isloginAdmin  = useSelector((state) => state.authen.isLoginAdmin);
+
     const MyIcon= new Icon({
          iconUrl:"/placeholder.png",
          iconSize:[35,35]
@@ -42,6 +46,8 @@ export default function MapVoiture(){
 
     return(<>
      <Header />
+     <div className="flex ">
+     {isloginAdmin ? (<Sidebar />):(<SidebarUser />) } 
     <MapContainer className="h-full" center={[voitures[0].position.lat,voitures[0].position.long]} zoom={6} style={{ height: '100vh', width: '100%' }}>
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -65,5 +71,8 @@ export default function MapVoiture(){
             }) 
             }
           </MapContainer>
+
+     </div>
+   
     </>)
 }

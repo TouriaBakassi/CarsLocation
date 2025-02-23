@@ -1,4 +1,4 @@
-import { ADD_VOITURE,DELETE_VOITURE,DELETE_ALL_VOITURES,UPDATE_VOITURE } from "../Actions/VoitureActions/VoitureActionsTypes"
+import { ADD_VOITURE,DELETE_VOITURE,DELETE_ALL_VOITURES,UPDATE_VOITURE,FILTRER_VOITURE } from "../Actions/VoitureActions/VoitureActionsTypes"
 
 const initialState={
     voitures: JSON.parse(localStorage.getItem('voitures')) || [
@@ -24,7 +24,14 @@ const ReducerVoiture=(state=initialState,action)=>{
             // case DELETE_ALL_VOITURES:
             //     localStorage.setItem('voitures', JSON.stringify([]));
             //     return {...state,voitures:[]};
-                                  
+            case FILTRER_VOITURE:
+                     if(action.payload=='' || action.payload=='tous'){
+                        localStorage.setItem('VoituresFiltrer', JSON.stringify(null));
+                        return {...state, VoituresFiltrer:null}
+                     } else{
+                        localStorage.setItem('VoituresFiltrer', JSON.stringify([...state.voitures.filter((v)=>v.prix==parseFloat(action.payload)  || v.adress.toUpperCase()==action.payload.toUpperCase())]));
+                        return {...state, VoituresFiltrer:[...state.voitures.filter((v)=> v.prix==parseFloat(action.payload)  || v.adress.toUpperCase()==action.payload.toUpperCase())]} 
+                    }           
             default:
                return state
         }

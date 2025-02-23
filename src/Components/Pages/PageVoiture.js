@@ -5,11 +5,13 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Icon } from 'leaflet';
 import Header from "./includes/Header";
+import Sidebar from "./includes/SideBar";
+import SidebarUser from "./includes/SideBarUser";
 
 export default function Voiture(){
     const {id}=useParams();
     const voiture= useSelector(state=>state.voitures.voitures.find(v=>v.id==id))
-   
+    const isloginAdmin  = useSelector((state) => state.authen.isLoginAdmin);
      const MyIcon= new Icon({
           iconUrl:"/placeholder.png",
           iconSize:[38,38]
@@ -17,6 +19,8 @@ export default function Voiture(){
 
     return(<>
     <Header />
+    <div className="flex ">
+    {isloginAdmin ? (<Sidebar />):(<SidebarUser />) } 
     <div class="container flex justify-between items-center p-5" >
   <div class="text-start p-3" style={{ height: '80vh', width: '50%' }}>
     <div class="col-md-4">
@@ -29,7 +33,7 @@ export default function Voiture(){
         <p class="card-text"> <b>Informations :</b> <small class="text-body-secondary">{voiture.text}</small></p>
         <p><b>Type: </b> {voiture.type}</p>
 
-        <button className="bg-blue-200 p-2 float-end m-2"><Link to={`/reserver/${id}`}> Réserver </Link></button>
+        <button className="bg-blue-200 p-2 float-end m-2"><Link to={`/reserver/${voiture.id}`}> Réserver </Link></button>
         <button className="bg-green-200 p-2 float-end m-2"><Link to={'/map'}> Retour </Link></button>
       </div>
     </div>
@@ -48,6 +52,7 @@ export default function Voiture(){
               </Popup>
             </Marker>
         </MapContainer>
+        </div>
 </div>
     
     

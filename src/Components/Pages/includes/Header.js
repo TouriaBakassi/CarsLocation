@@ -9,7 +9,7 @@ export default function Header(){
 	const navigate=useNavigate();
     const admin= useSelector(state=>state.authen.admin);  
 	const isloginAdmin  = useSelector((state) => state.authen.isLoginAdmin);
-
+	const userConnecter=useSelector((state)=>state.authen.userConnecter);
 	const handleDeconect=()=>{
 	    dispatch(DECONNECT_USER())
 	    navigate('/login');
@@ -23,7 +23,7 @@ export default function Header(){
 					<svg className="w-5 h-5 absolute ml-3 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
   					<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
 						</svg>
-					<input type="text" name="search" placeholder="Search talk" autocomplete="off" aria-label="Search talk" className="w-full pr-3 pl-10 py-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"/>
+					<input type="text" name="search" placeholder="Chercher..." autocomplete="off" aria-label="Search talk" className="w-full pr-3 pl-10 py-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"/>
 				</div>
 			</form>
 			
@@ -35,8 +35,12 @@ export default function Header(){
 		</div>
 		<main></main>
 	</div>) : (<div className="flex justify-between items-center p-3 "> 
-		 <h1 className="text-green-600 text-xl font-medium">Voitures Disponibles </h1>
-			<button type="button" className='bg-red-500 p-3 rounded m-1' onClick={handleDeconect}>Déconnexion</button> 
+		 <h1 className="text-red-600 text-xl font-medium">CarsLocation App</h1>
+		 <div>
+		<span className="text-blue-600"> {userConnecter.nom} </span>
+		<button type="button" className='bg-red-500 p-2 text-white text-sm rounded m-1' onClick={handleDeconect}>Déconnexion</button> 
+		
+		 </div>
 		</div> )  }
     
     </>)

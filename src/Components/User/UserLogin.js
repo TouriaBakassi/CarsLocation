@@ -34,7 +34,7 @@ function UserLogin() {
   useEffect(() => {
 
     if (isloginUser) {
-      navigate('/map');
+      navigate('/list');
     }
   }, [navigate, isloginUser]);
 
@@ -58,7 +58,7 @@ function UserLogin() {
   return (
     <div className="flex justify-center items-center w-full">
       <div className="flex justify-center items-center flex-col mt-5 p-5  w-12/6">
-        <h1 className="">CONNEXION</h1>
+        <h1 className="">USER CONNEXION</h1>
         <h5 className='text-center text-sm' >Bienvenue, Veuillez saisir vos informations</h5>
         <ToastContainer />
         <form className='pt-4' onSubmit={handleSubmit}>
@@ -84,7 +84,7 @@ function UserLogin() {
   </div>
           <p className='mt-5 text-sm'>
             Vous n'avez pas de compte ?
-            <Link href="/register" className="text-blue-400 visited:text-purple-300"> Créer un compte</Link>
+            <Link href="register" className="text-blue-400 visited:text-purple-300"> Créer un compte</Link>
           </p>
         </form>
       </div>

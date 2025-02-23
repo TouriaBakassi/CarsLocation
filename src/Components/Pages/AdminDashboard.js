@@ -1,14 +1,56 @@
 
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import Header from "./includes/Header";
 import Sidebar from "./includes/SideBar";
 import Swal from 'sweetalert2';
+import { CONFIRM_RESERVATION, REMOVE_RESERVATION } from '../../Actions/ReservationActions/ReservationActions';
+import { Link } from 'react-router-dom';
+
 function Dashboard(){
 
     const reservation= useSelector((state)=>state.reservation.reservation);
     const voitures= useSelector((state)=>state.voitures.voitures);
-   
+    const dispatch=useDispatch();
+const handleDelete = async (id) => {
+        const result = await Swal.fire({
+      title: "Êtes-vous sûr?",
+      text: "Cette action supprimera définitivement la reservation.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Supprimer",
+      cancelButtonText: "Annuler",
+      customClass: {
+      popup: "swal2-custom-small", 
+      },
+    });
+
+    if (result.isConfirmed) {
+        dispatch(REMOVE_RESERVATION(id))
+    }
+  };
+
+  const handleConfirm = async (user) => {
+    const result = await Swal.fire({
+  title: "Êtes-vous sûr?",
+  text: "Cette action confirme définitivement la reservation.",
+  icon: "success",
+  showCancelButton: true,
+  confirmButtonColor: "#4eb160",
+  cancelButtonColor: "#3085d6",
+  confirmButtonText: "Confirmé",
+  cancelButtonText: "Annuler",
+  customClass: {
+  popup: "swal2-custom-small", 
+  },
+});
+
+if (result.isConfirmed) {
+    dispatch(CONFIRM_RESERVATION(user))
+}
+};
   return (<>
   
     <Header />
@@ -17,8 +59,11 @@ function Dashboard(){
            <Sidebar />
            </div>
     <div className="flex flex-col justify-center items-center w-full" >
-         <h1>Dashboard</h1>
-         <h3>Annonces</h3>
+        <div className='w-full p-7 flex justify-between'>
+        <h1>Dashboard</h1>
+        <h3 >Annonces</h3>
+        </div>
+         
          <table className='table-auto'>
             <thead>
                 <tr>
@@ -28,6 +73,7 @@ function Dashboard(){
                     <th>Voiture</th>
                     <th>Date Debut</th>
                     <th>Date Fin</th>
+                    <th>Etat</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -41,9 +87,10 @@ function Dashboard(){
                             <td>{voiture}</td>
                             <td>{res.dateDebut}</td>
                             <td>{res.dateFin}</td>
+                            <td>{res.etat}</td>
                             <td > 
-                                <button  className='bg-blue-500 p-2 m-1'>Confirmer</button> 
-                                <button  className='bg-red-500 p-2 m-1'>Supprimer</button> 
+                                <button onClick={()=> handleConfirm(res.client)} className='bg-blue-500 p-2 m-1' >Confirmer</button> 
+                                <button  className='bg-red-500 p-2 m-1' onClick={()=> handleDelete(res.id)}>Supprimer</button> 
                             </td>    
                     </tr>)
                 }) }

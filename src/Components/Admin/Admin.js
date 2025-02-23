@@ -39,6 +39,7 @@ function AdminLogin() {
       notify();
       setEmail('');
       setPassword('');
+      navigate('/')
     }
   };
 
@@ -79,7 +80,7 @@ function AdminLogin() {
         </form>
       </div>
       <div className=' w-12/6'>
-        <img src='/image/proxy-image.jpeg'  className='w-full'/>
+        <img src='/image/proxy-image.jpeg' alt='cars'  className='w-full'/>
       </div>
     </div>
    

@@ -66,7 +66,7 @@ export default function AjouterVoiture(){
 
           const handleSubmit =  (e) => {
             e.preventDefault();
-            if (titre && text && address && image && position &&prix && type) {
+            if (titre && text && address && position &&prix && type) {
              dispatch(AJOUTER_VOITURE({titre:titre,text:text,type:type,adress:address,prix:prix,img:image,
                                         position:{lat:position[0],long:position[1]} }));
                 notifySuccess();
@@ -98,7 +98,7 @@ export default function AjouterVoiture(){
     <div className="flex justify-center items-center  bg-gray-100 w-full">
       <ToastContainer />
       <div className="flex justify-between items-start flex-col mt-5 p-5 w-12/6">
-        <h1 className=" text-green-600 text-xl font-medium">Ajouter Voiture</h1>
+        <h1 className=" text-orange-600 text-xl font-medium">Ajouter Voiture</h1>
         <h5 className='text-sm' >Veuillez saisir les informations de votre voiture</h5>
         
         <form className='w-full pt-4' onSubmit={handleSubmit}>

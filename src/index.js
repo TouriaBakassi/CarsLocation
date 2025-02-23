@@ -20,9 +20,9 @@ const store= legacy_createStore(allReducers);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <HashRouter>
+    <BrowserRouter>
       <Application />
-    </HashRouter>
+    </BrowserRouter>
   </Provider>
 );
 
