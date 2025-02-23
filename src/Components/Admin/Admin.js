@@ -36,10 +36,11 @@ function AdminLogin() {
     console.log('login : ' + isloginAdmin);
     disp && navigate('/');
     if (!isloginAdmin) {
-      notify();
+      
       setEmail('');
       setPassword('');
-      navigate('/')
+      // navigate('/')
+      notify();
     }
   };
 
@@ -59,13 +60,13 @@ function AdminLogin() {
         <div class="sm:col-span-12">
           <label for="email" class="block text-sm/6 font-medium text-gray-900">Address Email</label>
           <div class="mt-2">
-            <input id="email" name="email" type="email" onChange={(e)=>setEmail(e.target.value)} autocomplete="email" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
+            <input id="email" value={email} name="email" type="email" onChange={(e)=>setEmail(e.target.value)} autocomplete="email" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
           </div>
         </div>
         <div class="sm:col-span-12">
           <label for="pass" class="block text-sm/6 font-medium text-gray-900">Mot de Passe</label>
           <div class="mt-2">
-            <input type="password" name="pass" id="pass" onChange={(e)=>setPassword(e.target.value)} autocomplete="given-name" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
+            <input type="password" value={password} name="pass" id="pass" onChange={(e)=>setPassword(e.target.value)} autocomplete="given-name" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
           </div>
         </div>
           </div>

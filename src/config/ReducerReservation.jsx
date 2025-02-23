@@ -26,7 +26,7 @@ const ReducerReservation=(state=initialState,action)=>{
             return {...state,reservation:[]};
         case CONFIRMATION_RESERVATION :
             localStorage.setItem('notifications', JSON.stringify([...state.notifications,{user: action.payload,id:state.notifications.length+1,mssg:"Votre réservation est confirmé !",dateNot: new Date().toLocaleDateString()}]));
-            return {...state,reservation:[...state.notifications,{user: action.payload,id:state.notifications.length+1,mssg:"Votre réservation est confirmé !",dateNot: new Date().toLocaleDateString()}]};
+            return {...state,reservation:[...state.notifications,{user: action.payload, id:state.notifications.length+1,mssg:"Votre réservation est confirmé !",dateNot: new Date().toLocaleDateString()}]};
                            
         default:
            return state

@@ -32,7 +32,7 @@ export default function AjouterReservation(){
       const handleSubmit =  (e) => {
             e.preventDefault();
             if (userConnecter && ville && voiture && dateDebut && dateFin ) {
-             dispatch(AJOUTER_RESERVATION({user:userConnecter.id,ville:ville,voiture:voiture.id,dateDebut:dateDebut,dateFin:dateFin,etat:'en attente' }));
+             dispatch(AJOUTER_RESERVATION({client:userConnecter.id,ville:ville,voiture:voiture.id,dateDebut:dateDebut,dateFin:dateFin,etat:'en attente' }));
                 notifySuccess();
                 // setUser(null);
                 
@@ -66,7 +66,7 @@ export default function AjouterReservation(){
         <div className="sm:col-span-12 flex justify-between items-center">
           <label for="user" className="block text-sm/6 font-medium text-gray-900  mx-1">User </label>
           <div className="mt-2">
-            <input disabled value={userConnecter.nom} id="user" name="user" type="text"  autocomplete="user" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
+            <input disabled value={userConnecter.nom}  id="user" name="user" type="text"  autocomplete="user" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
           </div>
           <label for="voiture" className="block text-sm/6 font-medium text-gray-900 mx-1">Voiture</label>
           <div className="mt-2">

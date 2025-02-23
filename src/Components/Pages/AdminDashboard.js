@@ -4,14 +4,16 @@ import { useSelector,useDispatch } from 'react-redux';
 import Header from "./includes/Header";
 import Sidebar from "./includes/SideBar";
 import Swal from 'sweetalert2';
+import { ToastContainer, toast } from 'react-toastify';
 import { CONFIRM_RESERVATION, REMOVE_RESERVATION } from '../../Actions/ReservationActions/ReservationActions';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Dashboard(){
 
     const reservation= useSelector((state)=>state.reservation.reservation);
     const voitures= useSelector((state)=>state.voitures.voitures);
     const dispatch=useDispatch();
+    const navigate=useNavigate()
 const handleDelete = async (id) => {
         const result = await Swal.fire({
       title: "Êtes-vous sûr?",
@@ -46,9 +48,11 @@ const handleDelete = async (id) => {
   popup: "swal2-custom-small", 
   },
 });
-
+const notifySuccess = () => toast.success("La confirmation est faite avec success ");
 if (result.isConfirmed) {
     dispatch(CONFIRM_RESERVATION(user))
+    notifySuccess();
+    
 }
 };
   return (<>
@@ -63,7 +67,7 @@ if (result.isConfirmed) {
         <h1>Dashboard</h1>
         <h3 >Annonces</h3>
         </div>
-         
+         <ToastContainer />
          <table className='table-auto'>
             <thead>
                 <tr>
