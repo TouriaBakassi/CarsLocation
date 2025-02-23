@@ -53,7 +53,7 @@ export default function SidebarUser(){
 
 			
 		</div>
-        <button type="button" className='bg-red-700 p-3 w-full' onClick={handleDeconect}>Déconnexion</button>
+        <button type="button" className='bg-red-700 p-3 mt-20 w-full' onClick={handleDeconect}>Déconnexion</button>
 	</div>
 
 	
