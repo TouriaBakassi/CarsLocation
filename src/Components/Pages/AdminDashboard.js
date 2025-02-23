@@ -63,9 +63,9 @@ if (result.isConfirmed) {
            <Sidebar />
            </div>
     <div className="flex flex-col justify-center items-center w-full" >
-        <div className='w-full p-7 flex justify-between'>
-        <h1>Dashboard</h1>
-        <h3 >Annonces</h3>
+        <div className='w-full p-7 flex justify-between '>
+        <h1 className='text-medium text-orange-600 bg-gray-300 p-2 m-2 rounded flex items-center'>Dashboard/<h3 className='text-medium text-gray-600 bg-orange-300 p-2 rounded'>Annonces</h3></h1>
+        
         </div>
          <ToastContainer />
          <table className='table-auto p-4 w-full text-center'>
