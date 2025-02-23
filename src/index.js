@@ -7,7 +7,7 @@ import { legacy_createStore,combineReducers } from 'redux';
 import ReducerVoiture from './config/ReducerVoiture';
 import ReducerAuthen from './config/ReducerAuthen';
 import ReducerReservation from './config/ReducerReservation';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter , HashRouter} from 'react-router-dom';
 
 const allReducers=combineReducers({
   authen: ReducerAuthen,
@@ -20,9 +20,9 @@ const store= legacy_createStore(allReducers);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <HashRouter>
       <Application />
-    </BrowserRouter>
+    </HashRouter>
   </Provider>
 );
 
