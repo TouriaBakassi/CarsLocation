@@ -68,9 +68,9 @@ if (result.isConfirmed) {
         <h3 >Annonces</h3>
         </div>
          <ToastContainer />
-         <table className='table-auto'>
+         <table className='table-auto p-4 w-full text-center'>
             <thead>
-                <tr>
+                <tr className='p-5 bg-gray-100'>
                     <th>IDclient</th>
                     <th>Client</th>
                     <th>Ville</th>
@@ -81,20 +81,20 @@ if (result.isConfirmed) {
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody >
                 {reservation.map((res,i)=>{
                     const voiture= voitures.map((v)=>v.id==res.voiture)
-                    return (<tr className='m-5' key={i}>
+                    return (<tr className='my-5 p-5 bg-gray-100' key={i}>
                             <td>{res.id}</td>
                             <td>{res.client}</td>
                             <td>{res.ville}</td>
                             <td>{voiture}</td>
                             <td>{res.dateDebut}</td>
                             <td>{res.dateFin}</td>
-                            <td>{res.etat}</td>
+                            <td> <button type='button' className='bg-orange-100 p-2 m-1 rounded'> {res.etat} </button> </td>
                             <td > 
-                                <button onClick={()=> handleConfirm(res.client)} className='bg-blue-500 p-2 m-1' >Confirmer</button> 
-                                <button  className='bg-red-500 p-2 m-1' onClick={()=> handleDelete(res.id)}>Supprimer</button> 
+                                <button type='button' onClick={()=> handleConfirm(res.client)} className='bg-blue-300 p-2 m-1 rounded' >Confirmer</button> 
+                                <button type='button' className='bg-red-500 p-2 m-1 rounded' onClick={()=> handleDelete(res.id)}>Supprimer</button> 
                             </td>    
                     </tr>)
                 }) }
